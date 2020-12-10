@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DeviceMotion Test</title>
+</head>
+
+<body>
+    <h1>色々テストするよ</h1>
+
+    <div>
+        <button onclick="deviceMotionRequest()">Click</button>
+        <span id="x">0</span>
+        <span id="y">0</span>
+        <span id="z">0</span>
+    </div>
+    <script>
+        function deviceMotionRequest() {
+            if (DeviceMotionEvent.requestPermission) {
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener("devicemotion", function (event) {
+                                if (!event.accelerationIncludingGravity) {
+                                    alert('event.accelerationIncludingGravity is null');
+                                    return;
+                                }
+                                document.getElementById('x').innerHTML = event.accelerationIncludingGravity
+                                    .x;
+                                document.getElementById('y').innerHTML = event.accelerationIncludingGravity
+                                    .y;
+                                document.getElementById('z').innerHTML = event.accelerationIncludingGravity
+                                    .z;
+                            })
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                alert('DeviceMotionEvent.requestPermission is not found')
+            }
+        }
+    </script>
+</body>
+
+</html>
