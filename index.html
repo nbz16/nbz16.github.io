@@ -1,45 +1,70 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <title>DeviceMotion Test</title>
-</head>
-
-<body>
-    <h1>色々テストするよ</h1>
-
-    <div>
-        <button onclick="deviceMotionRequest()">Click</button>
-        <span id="x">0</span>
-        <span id="y">0</span>
-        <span id="z">0</span>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Fire Flower</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">Fire Flower</div>
+      </div>
     </div>
     <script>
-        function deviceMotionRequest() {
-            if (DeviceMotionEvent.requestPermission) {
-                DeviceMotionEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener("devicemotion", function (event) {
-                                if (!event.accelerationIncludingGravity) {
-                                    alert('event.accelerationIncludingGravity is null');
-                                    return;
-                                }
-                                document.getElementById('x').innerHTML = event.accelerationIncludingGravity
-                                    .x;
-                                document.getElementById('y').innerHTML = event.accelerationIncludingGravity
-                                    .y;
-                                document.getElementById('z').innerHTML = event.accelerationIncludingGravity
-                                    .z;
-                            })
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                alert('DeviceMotionEvent.requestPermission is not found')
-            }
-        }
-    </script>
-</body>
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/upload_p.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/upload_p.data.gz",
+        frameworkUrl: buildUrl + "/upload_p.framework.js.gz",
+        codeUrl: buildUrl + "/upload_p.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Digital Contents",
+        productName: "Fire Flower",
+        productVersion: "0.1",
+      };
 
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 1;
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
 </html>
