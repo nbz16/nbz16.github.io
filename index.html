@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Fire Flower</title>
+    <title>Unity WebGL Player | asset test</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-      <div>
+    <div>
         <button onclick="deviceMotionRequest()">Click</button>
         <span id="x">0</span>
         <span id="y">0</span>
         <span id="z">0</span>
-      </div>
+    </div>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
@@ -25,11 +25,11 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Fire Flower</div>
+        <div id="unity-build-title">asset test</div>
       </div>
     </div>
     <script>
-        function deviceMotionRequest() {
+      function deviceMotionRequest() {
             if (DeviceMotionEvent.requestPermission) {
                 DeviceMotionEvent.requestPermission()
                     .then(permissionState => {
@@ -55,14 +55,14 @@
         }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/upload_p.loader.js";
+      var loaderUrl = buildUrl + "/accel.loader.js";
       var config = {
-        dataUrl: buildUrl + "/upload_p.data.gz",
-        frameworkUrl: buildUrl + "/upload_p.framework.js.gz",
-        codeUrl: buildUrl + "/upload_p.wasm.gz",
+        dataUrl: buildUrl + "/accel.data.gz",
+        frameworkUrl: buildUrl + "/accel.framework.js.gz",
+        codeUrl: buildUrl + "/accel.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Digital Contents",
-        productName: "Fire Flower",
+        companyName: "nbz16",
+        productName: "asset test",
         productVersion: "0.1",
       };
 
