@@ -11,15 +11,15 @@
 
     <script>
       function ClickRequestDeviceSensor(){
-  window.alert("ato");
-  DeviceOrientationEvent.requestPermission().then( function( response ){
-    if( response === 'granted' ){
-      window.alert("granted");
-    }
-  }).catch( function( e ){
-    console.log( e );
-  });
-},
+        window.alert("ato");
+        DeviceOrientationEvent.requestPermission().then( function( response ){
+          if( response === 'granted' ){
+            window.alert("granted");
+          }
+        }).catch( function( e ){
+          console.log( e );
+        });
+      }
 
       function post_function( result_string ) {
           if ( result_string === "granted" ) {
