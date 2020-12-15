@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-    <div>
-        <button onclick="deviceMotionRequest()">Click</button>
-        <span id="x">0</span>
-        <span id="y">0</span>
-        <span id="z">0</span>
-    </div>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
@@ -29,31 +23,6 @@
       </div>
     </div>
     <script>
-      function deviceMotionRequest() {
-            if (DeviceMotionEvent.requestPermission) {
-                DeviceMotionEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener("devicemotion", function (event) {
-                                if (!event.accelerationIncludingGravity) {
-                                    alert('event.accelerationIncludingGravity is null');
-                                    return;
-                                }
-                                document.getElementById('x').innerHTML = event.accelerationIncludingGravity
-                                    .x;
-                                document.getElementById('y').innerHTML = event.accelerationIncludingGravity
-                                    .y;
-                                document.getElementById('z').innerHTML = event.accelerationIncludingGravity
-                                    .z;
-                            })
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                alert('DeviceMotionEvent.requestPermission is not found')
-            }
-        }
-        
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/accel.loader.js";
       var config = {
