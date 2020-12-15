@@ -5,9 +5,20 @@
     <title>accel</title>
   </head>
   <body>
-    <button onclick="permission_request();">動作と方向へのアクセス許可</button>
+    <button onclick="ClickRequestDeviceSensor()">動作と方向へのアクセス許可</button>
 
     <script>
+      function ClickRequestDeviceSensor(){
+  window.alert("ato");
+  DeviceOrientationEvent.requestPermission().then( function( response ){
+    if( response === 'granted' ){
+      window.alert("granted");
+    }
+  }).catch( function( e ){
+    console.log( e );
+  });
+},
+
       function post_function( result_string ) {
           if ( result_string === "granted" ) {
               // ユーザが許可した場合、文字列"granted"が返る
