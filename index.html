@@ -21,19 +21,19 @@
               && DeviceOrientationEvent.requestPermission
               && typeof DeviceOrientationEvent.requestPermission === 'function'
           ) {
-      DeviceMotionEvent.requestPermission().then( post_function );
-      window.addEventListener( "devicemotion", function(e) {
-                  // 何らかの処理
-              }, false );
+              DeviceMotionEvent.requestPermission().then( post_function );
+              // window.addEventListener( "devicemotion", function(e) {
+              //     // 何らかの処理
+              // }, false );
           }
           if ( DeviceOrientationEvent
               && DeviceOrientationEvent.requestPermission
               && typeof DeviceOrientationEvent.requestPermission === 'function'
           ) {
               DeviceOrientationEvent.requestPermission().then( postf_unction );
-      window.addEventListener( "deviceorientation", function(e) {
-                  // 何らかの処理
-              }, false );
+              // window.addEventListener( "deviceorientation", function(e) {
+              //     // 何らかの処理
+              // }, false );
           }
       }
     </script>
