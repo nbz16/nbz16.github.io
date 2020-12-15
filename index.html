@@ -1,101 +1,43 @@
 <!DOCTYPE html>
-<html lang="en-us">
+
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | asset test</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <title>accel</title>
   </head>
   <body>
-    <div>
-        <button onclick="deviceMotionRequest()">Click</button>
-        <span id="x">0</span>
-        <span id="y">0</span>
-        <span id="z">0</span>
-    </div>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
-        </div>
-      </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">asset test</div>
-      </div>
-    </div>
+    <button onclick="permission_request();">動作と方向へのアクセス許可</button>
+
     <script>
-      function deviceMotionRequest() {
-            if (DeviceMotionEvent.requestPermission) {
-                DeviceMotionEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener("devicemotion", function (event) {
-                                if (!event.accelerationIncludingGravity) {
-                                    alert('event.accelerationIncludingGravity is null');
-                                    return;
-                                }
-                                document.getElementById('x').innerHTML = event.accelerationIncludingGravity
-                                    .x;
-                                document.getElementById('y').innerHTML = event.accelerationIncludingGravity
-                                    .y;
-                                document.getElementById('z').innerHTML = event.accelerationIncludingGravity
-                                    .z;
-                            })
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                alert('DeviceMotionEvent.requestPermission is not found')
-            }
-        }
-
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/accel.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/accel.data.gz",
-        frameworkUrl: buildUrl + "/accel.framework.js.gz",
-        codeUrl: buildUrl + "/accel.wasm.gz",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "nbz16",
-        productName: "asset test",
-        productVersion: "0.1",
-      };
-
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        container.className = "unity-mobile";
-        config.devicePixelRatio = 1;
-      } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+      function post_function( result_string ) {
+          if ( result_string === "granted" ) {
+              // ユーザが許可した場合、文字列"granted"が返る
+          }
+          else if ( result_string === "denied" ) {
+      // ユーザが拒否した場合、文字列"denied"が返る
+          }
       }
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
+      function permission_request() {
+          if ( DeviceOrientationEvent
+              && DeviceOrientationEvent.requestPermission
+              && typeof DeviceOrientationEvent.requestPermission === 'function'
+          ) {
+      DeviceMotionEvent.requestPermission().then( post_function );
+      window.addEventListener( "devicemotion", function(e) {
+                  // 何らかの処理
+              }, false );
+          }
+          if ( DeviceOrientationEvent
+              && DeviceOrientationEvent.requestPermission
+              && typeof DeviceOrientationEvent.requestPermission === 'function'
+          ) {
+              DeviceOrientationEvent.requestPermission().then( postf_unction );
+      window.addEventListener( "deviceorientation", function(e) {
+                  // 何らかの処理
+              }, false );
+          }
+      }
     </script>
   </body>
 </html>
+
+
