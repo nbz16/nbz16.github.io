@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
+    <button onclick="deviceMotionRequest()">Click</button>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
@@ -23,12 +24,37 @@
       </div>
     </div>
     <script>
+      function deviceMotionRequest() {
+            if (DeviceMotionEvent.requestPermission) {
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener("devicemotion", function (event) {
+                                if (!event.accelerationIncludingGravity) {
+                                    alert('event.accelerationIncludingGravity is null');
+                                    return;
+                                }
+                                document.getElementById('x').innerHTML = event.accelerationIncludingGravity
+                                    .x;
+                                document.getElementById('y').innerHTML = event.accelerationIncludingGravity
+                                    .y;
+                                document.getElementById('z').innerHTML = event.accelerationIncludingGravity
+                                    .z;
+                            })
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                alert('DeviceMotionEvent.requestPermission is not found')
+            }
+        }
+        
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/deploy.loader.js";
       var config = {
-        dataUrl: buildUrl + "/deploy.data",
-        frameworkUrl: buildUrl + "/deploy.framework.js",
-        codeUrl: buildUrl + "/deploy.wasm",
+        dataUrl: buildUrl + "/deploy.data.unityweb",
+        frameworkUrl: buildUrl + "/deploy.framework.js.unityweb",
+        codeUrl: buildUrl + "/deploy.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Digital Contents",
         productName: "Fire Flower",
