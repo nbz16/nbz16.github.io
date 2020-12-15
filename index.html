@@ -31,7 +31,7 @@
       }
       function permission_request() {
           if ( DeviceOrientationEvent.requestPermission) {
-              DeviceMotionEvent.requestPermission().then( post_function );
+              DeviceMotionEvent.requestPermission();
               // window.addEventListener( "devicemotion", function(e) {
               //     // 何らかの処理
               // }, false );
