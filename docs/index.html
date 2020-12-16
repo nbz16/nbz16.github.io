@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Fire Flower</title>
+    <title>Unity WebGL Player | asset test</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-    <button onclick="deviceMotionRequest()">Click</button>
+    <button onclick="deviceMotionRequest()">動作と方向へのアクセス許可</button>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Fire Flower</div>
+        <div id="unity-build-title">asset test</div>
       </div>
     </div>
     <script>
@@ -49,14 +49,14 @@
             }
         }
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/deploy.loader.js";
+      var loaderUrl = buildUrl + "/accel.loader.js";
       var config = {
-        dataUrl: buildUrl + "/deploy.data.unityweb",
-        frameworkUrl: buildUrl + "/deploy.framework.js.unityweb",
-        codeUrl: buildUrl + "/deploy.wasm.unityweb",
+        dataUrl: buildUrl + "/accel.data.unityweb",
+        frameworkUrl: buildUrl + "/accel.framework.js.unityweb",
+        codeUrl: buildUrl + "/accel.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Digital Contents",
-        productName: "Fire Flower",
+        companyName: "nbz16",
+        productName: "asset test",
         productVersion: "0.1",
       };
 
