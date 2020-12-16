@@ -25,8 +25,8 @@
     </div>
     <script>
       function deviceMotionRequest() {
-            if (DeviceMotionEvent.requestPermission) {
-                DeviceMotionEvent.requestPermission()
+            if (DeviceOrientationEvent.requestPermission) {
+                DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
                         if (permissionState === 'granted') {
                             window.addEventListener("devicemotion", function (event) {
